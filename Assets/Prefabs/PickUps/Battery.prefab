@@ -86,7 +86,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 618fa3b7e6202524e8d39f4e23de5d00, type: 2}
+  - {fileID: 2100000, guid: e1a518bbe563a484caab16b15be03cc5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -155,7 +155,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1464707701030772}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55ffcaa20d04eeb44b1794c56a53c3a7, type: 3}
+  m_Script: {fileID: 11500000, guid: 8fb5ab31599441f46bca8d2cc4c6c616, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   juice: 5
