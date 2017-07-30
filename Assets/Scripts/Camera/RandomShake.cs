@@ -1,18 +1,22 @@
 using UnityEngine;
 using System.Collections;
 
-/// <summary>   A random shake. </summary>
-///
-/// <remarks>   David Jerome, 12/7/2016. </remarks>
+/// <summary>
+/// Initiates a subtle shake effect on a given transform.
+/// </summary>
 public class RandomShake : MonoBehaviour
 {
     /// <summary>   The original position of the object. </summary>
     private Vector3 initPos;
+    /// <summary>   The original position of the camera. </summary>
+    private Vector3 camPosition;
 
     /// <summary>  The Camera that holds this script. </summary>
     [Header("We will need the Camera for this")]
     public Transform myCamera;
+
     /// <summary>   The duration of the effect. </summary>
+    [Header("Tweak variables to perfect")]
     public float duration = 0.3f;
     /// <summary>   The magnitude of the effect. </summary>
     public float magnitude = 0.25f;
@@ -20,40 +24,34 @@ public class RandomShake : MonoBehaviour
     public static RandomShake Instance { get; set; } 
 
 
-    void Start()
-    {
+    void Start(){
         if(Instance == null)
-        {
             Instance = this;
-        }
+        if(myCamera == null)
+            myCamera = Camera.main.transform;
+
+        camPosition = myCamera.position;
     }
 
 
     /// <summary>   Play shake all. </summary>
-    public void PlayShakeAll(Transform trans)
-    {
+    public void PlayShakeLeftToRight(Transform trans){
         initPos = trans.position;
 
         StopAllCoroutines();
-
         StartCoroutine(ShakeAll(trans));
     }
 
-    // -------------------------------------------------------------------------
-    /// <summary>   Play shake up. </summary>
-    public void PlayShakeUp()
-    {
-        // Stop if we are shaking.
+
+    public void PlayShakeCamera(){
         StopAllCoroutines();
-        // Start shaking
-        StartCoroutine("ShakeUp");
+        StartCoroutine(ShakeCamera());
     }
 
-    /// <summary>   Shake the back and forth on teh X axis. </summary>
-    ///
-    /// <returns>   An IEnumerator. </returns>
-    IEnumerator ShakeAll(Transform trans)
-    {
+
+
+    /// <summary>   Shake back and forth on the X axis. </summary>
+    IEnumerator ShakeAll(Transform trans){
         float elapsed = 0.0f;
         float _magnitude = magnitude * .5f;
 
@@ -79,41 +77,34 @@ public class RandomShake : MonoBehaviour
         trans.position = initPos;
     }
 
-    /// <summary>   Shake the camera up and down. </summary>
-    ///
-    /// <returns>   An IEnumerator. </returns>
-    IEnumerator ShakeUp()
-    {
+
+    /// <summary>   Shake the camera in all directions. </summary>
+    IEnumerator ShakeCamera(){
         float elapsed = 0.0f;
+        float _magnitude = magnitude * .5f;
 
         Vector4 prevPosition = myCamera.position;
 
-        while (elapsed < duration)
+        while(elapsed < duration)
         {
             elapsed += Time.deltaTime;
 
             float percentComplete = elapsed / duration;
             float damper = 1.0f - Mathf.Clamp(4.0f * percentComplete - 3.0f, 0.0f, 1.0f);
             // map noise to [-1, 1]
+            float x = Random.value * 2.0f - 1.0f;
             float y = Random.value * 2.0f - 1.0f;
 
-            y *= magnitude * damper;
+            x *= _magnitude * damper;
+            y *= _magnitude * damper;
             y += 1;
 
-            myCamera.position = Vector3.Lerp(new Vector3(initPos.x, y, initPos.z), prevPosition, Time.deltaTime);
+            myCamera.position = Vector3.Lerp(new Vector3(x, y, camPosition.z), prevPosition, Time.deltaTime);
             prevPosition = myCamera.position;
 
             yield return null;
         }
 
-        myCamera.position = initPos;
-    }
-
-
-    [ContextMenu("SetUpScene")]
-    void SetUpScene()
-    {
-        duration = 0.3f;
-        magnitude = 0.25f;
+        myCamera.position = camPosition;
     }
 }
