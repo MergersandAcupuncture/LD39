@@ -58,6 +58,9 @@ public class BlockFall : MonoBehaviour {
             // The block can fade away or crumlbe or somthing..
             // Just to get rid of it?
             //colliders[0].enabled = false;
+
+            // Cant shake camera right now because of Camera Follow Script :(
+            //RandomShake.Instance.PlayShakeCamera();
         }
     }
 
@@ -68,7 +71,7 @@ public class BlockFall : MonoBehaviour {
     {
         particles.Play();
         // Need to shake the block a little bit
-        RandomShake.Instance.PlayShakeAll(trans[1]);
+        RandomShake.Instance.PlayShakeLeftToRight(trans[1]);
         //Then the block falls
         StartCoroutine(StartFall());
     }
