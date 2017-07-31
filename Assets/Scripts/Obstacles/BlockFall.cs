@@ -59,6 +59,8 @@ public class BlockFall : MonoBehaviour {
             // Just to get rid of it?
             //colliders[0].enabled = false;
 
+            AudioManager.Instance.PlayBounceBlockFallAudio();
+
             // Cant shake camera right now because of Camera Follow Script :(
             //RandomShake.Instance.PlayShakeCamera();
         }
