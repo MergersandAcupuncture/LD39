@@ -16,7 +16,8 @@ public class PlayerMotor : MonoBehaviour
     private Vector3 moveVector;
     private BaseState state;
 
-    private float horizontalVelocity;
+    [HideInInspector]
+    public float horizontalVelocity;
     [HideInInspector]
     public float verticalVelocity;
 
@@ -52,9 +53,6 @@ public class PlayerMotor : MonoBehaviour
         state.ProcessRotation(moveVector);
 
         state.Transition();
-
-     //   moveVector.x = Mathf.Lerp(horizontalVelocity, inputs.x * runSpeed, Time.deltaTime * (controller.isGrounded ? groundDamping : inAirDamping));
-     //   moveVector.y = verticalVelocity;
 
         controller.move(moveVector * Time.deltaTime);
 
