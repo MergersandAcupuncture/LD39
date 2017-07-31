@@ -13,7 +13,7 @@ public class CameraFollow : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         if(player == null)
-            player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+            player = GameObject.Find("Player(Clone)").GetComponent<Transform>();
 	}
 	
 	// Update is called once per frame
