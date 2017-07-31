@@ -15,7 +15,7 @@ public class FallingState : BaseState
 
     public override Vector3 ProcessMotion(Vector3 input)
     {
-        MotorHelper.ApplySpeed(ref input, motor.Speed);
+        MotorHelper.ApplySpeed(ref input,motor.horizontalVelocity, motor.Speed, motor.inAirDamping);
         MotorHelper.ApplyGravity(ref input, ref motor.verticalVelocity, motor.gravity, motor.gravity);
 
         return input + Vector3.down;

@@ -12,7 +12,7 @@ public class RunningState : BaseState
 
     public override Vector3 ProcessMotion(Vector3 input)
     {
-        MotorHelper.ApplySpeed(ref input, motor.Speed);
+        MotorHelper.ApplySpeed(ref input, motor.horizontalVelocity, motor.Speed, motor.groundDamping);
 
         return input;
     }

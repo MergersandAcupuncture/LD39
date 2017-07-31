@@ -4,9 +4,10 @@ public static class MotorHelper
 {
     /// <summary>
     /// Multiply input vector by speed </summary>
-    public static void ApplySpeed(ref Vector3 vector, float speed)
+    public static void ApplySpeed(ref Vector3 vector,float prevVelocity, float speed,float damping)
     {
-        vector *= speed;
+        vector.x = Mathf.Lerp(prevVelocity, vector.x * speed, Time.deltaTime * damping);
+        //_velocity.x = Mathf.Lerp( _velocity.x, normalizedHorizontalSpeed * runSpeed, Time.deltaTime * smoothedMovementFactor );
     }
 
     /// <summary>
